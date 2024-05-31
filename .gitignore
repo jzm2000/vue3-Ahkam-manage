@@ -6,24 +6,25 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-pnpm-lock.yaml
-TODO.md
 
 node_modules
+.DS_Store
 dist
-dist_test
+dist-ssr
+coverage
 *.local
-.tours
-/yzbRegroup*
-.bj.json
+
+/cypress/videos/
+/cypress/screenshots/
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+*.tsbuildinfo
