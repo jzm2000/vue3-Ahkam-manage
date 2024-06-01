@@ -30,9 +30,11 @@ interface Game2 {
   blocks:GameConfigType[]
 }
 interface componentListType {
-  type:String;
-  name:String;
-  icon:String;
+  type: String;
+  name: String;
+  icon: String;
+  InputType?:String,
+  componentContent?:Object
 }
 interface componetDataType {
   title: String;
