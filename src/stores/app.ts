@@ -6,27 +6,25 @@ export default defineStore("appStore", {
       AppData: {
         size: "default",
         labelPosition: "left",
-        labelWidth: "auto",
-        modelName: "form",
-        AppList: [
-          {
-            type: "ElInput",
-            name: "输入框",
-            icon: "",
-            componentContent: {
-              variateName: "",
-              defaultValue: "",
-              width: "",
-              size: "small",
-              label: "输入框",
-              labelWidth: "auto",
-              placeholder: "请输入",
-              prop: "",
-            },
-          },
-        ],
+        labelWidth: 0,
+        formName: "formSetting",
+        RefFormName: "formRef",
+        AppList: [],
       },
+      currentComponent: {},
     };
   },
-  actions: {},
+  getters: {},
+  actions: {
+    setCurrentComponent(uid) {
+      this.currentComponent = this.AppData.AppList.find((e) => e.uid == uid);
+    },
+    delCurrentComponent() {},
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      { storage: localStorage }, // userInfo localstorage存储
+    ],
+  },
 });

@@ -21,8 +21,11 @@ function handleChange(val){
     console.log(activeName.value);
 }
 function handleClone(row){
-    console.log(row);
+    row.uid = setUid();
     return row
+}
+function setUid(){
+    return Date.now();
 }
 const list = ref(componentData);
 </script>
