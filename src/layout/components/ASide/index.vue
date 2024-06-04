@@ -3,7 +3,7 @@
     <el-tabs v-model="activeName" class="demo-tabs">
       <el-tab-pane v-for="item in tabs" :label="item.name" :name="item.value"></el-tab-pane>
     </el-tabs>
-    <formTemplate></formTemplate>
+    <component :is="componentTabs.get(activeName)"></component>
   </div>
 </template>
 
@@ -11,10 +11,8 @@
 import { ref, reactive, getCurrentInstance,defineComponent } from "vue";
 import componentData from "@/views/panelComponent/componentData";
 import formTemplate from "./formTemplate.vue"
+import componentGallery from "./componentGallery.vue"
 export default defineComponent({
-  components:{
-    formTemplate
-  },
   setup(props){
     const tabs = ref([
       {
@@ -27,10 +25,14 @@ export default defineComponent({
       }
     ]);
     let activeName = ref(1);
-
+    let componentTabs = new Map([
+      [1,formTemplate],
+      [2,componentGallery]
+    ]);
     return {
       tabs,
       activeName,
+      componentTabs
     }
   }
 

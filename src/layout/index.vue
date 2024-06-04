@@ -14,18 +14,26 @@
                         <el-scrollbar>
                             <el-form :model="formSetting" :label-width="AppData.labelWidth" class="form_class"
                                 :label-position="AppData.labelPosition" :size="AppData.size">
-                                <draggable :list="AppData.AppList" :group="groupB" animation="300"
-                                    class="draggable_content" item-key="id" @change="handleMove">
-                                    <template #item="{ element:{componentContent,uid,type} }">
-                                        <div class="page_list-item" @click="selectComponent(uid,componentContent,type)">
+                                <draggable :list="AppData.AppList" :group="groupB" animation="300" handle=".move"
+                                    @add="handleAdd" class="draggable_content"
+                                    item-key="uid" @end="handleMove">
+                                    <template #item="{ element:{componentContent,uid,type,name} }">
+                                        <div class="page_list-item" @click="selectComponent(uid,componentContent,type)"
+                                            :class="{actived:id==uid}">
                                             <el-form-item :label="componentContent.label"
-                                                :label-width="componentContent.labelWidth">
-                                                <component :is="type"
+                                                :label-width="componentContent.labelWidth" :key="uid">
+                                                <component :is="type" :key="uid"
                                                     :type="type=='JInput' ? componentContent.InputType : ''"
                                                     :placeholder="componentContent.placeholder"
-                                                    :size="componentContent.size"
+                                                    :size="componentContent.size" :componentContent="componentContent"
                                                     v-model="componentContent.defaultValue"></component>
                                             </el-form-item>
+                                            <div class="move_area move" v-show="id===uid">
+                                                <el-icon>
+                                                    <Rank />
+                                                </el-icon>{{ name }}
+                                            </div>
+                                            <div class="operation_btn"></div>
                                         </div>
                                     </template>
 
@@ -49,7 +57,7 @@ import Panel from "./components/Panel/index.vue"
 import { defineComponent, reactive,ref } from "vue"
 import { storeToRefs } from "pinia"
 import useAppStore from "@/stores/app.ts"
-import JInput from "@/components/JInput/index.vue";
+// import JInput from "@/components/JInput/index.vue";
 import componentData from "@/views/panelComponent/componentData.ts";
 export default defineComponent({
     components: {
@@ -57,21 +65,24 @@ export default defineComponent({
         ASide,
         Panel,
         draggable,
-        JInput
+        
     },
     setup() {
         const appStore = useAppStore();
-        const groupB = reactive({ name: "startBox", pull: false });
+        const groupB = reactive({ name: "startBox", pull: false,put:true });
         const formSetting = reactive({
 
         });
         let id = ref(0);
         function handleMove(val) {
-           
+           console.log("move",val);
         }
         function selectComponent(uid, componentContent, type){
             id.value = uid;
             appStore.setCurrentComponent(uid);
+        }
+        function handleAdd(val){
+            console.log('add',val);
         }
         const { AppData } = storeToRefs(appStore)
         console.log("AppData",AppData);
@@ -81,6 +92,7 @@ export default defineComponent({
             formSetting,
             id,
             handleMove,
+            handleAdd,
             selectComponent
         }
     }
@@ -88,16 +100,31 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .page_list-item{
+    position:relative;
     outline:1px solid transparent;
     margin: 1px;
     &:hover{
         outline-color: #409EFF;
         outline-style: dotted
     }
-    .actived{
-        outline-color:#409EFF;
-        outline-style: solid;
+    .move_area{
+        position:absolute;
+        top:0;
+        left:0;
+        background-color: #409EFF;
+        color:#fff;
+        font-size:12px;
+        padding:2px 10px;
+        cursor:move!important;
+        opacity:0.6;
+        &:hover{
+            opacity:1;
+        }
     }
+}
+.page_list-item.actived{
+    outline-color:#409EFF;
+    outline-style: solid;
 }
 .form_class{
     padding-right: 10px;
@@ -120,7 +147,9 @@ export default defineComponent({
         font-weight: bold;
     }
 }
-
+.el-header{
+    padding:0;
+}
 .drag_li {
     float: left;
     width: 100px;
@@ -129,12 +158,18 @@ export default defineComponent({
     text-align: center;
     border: 1px solid #e8e9ebab;
     margin-bottom: 10px;
-    cursor: move;
     user-select: none;
     margin-left: 12px;
 
     &:hover {
         background-color: #F2F2F1;
     }
+}
+.drag_class{
+    width:100%;
+    cursor: move;
+}
+.move{
+    cursor:move;
 }
 </style>

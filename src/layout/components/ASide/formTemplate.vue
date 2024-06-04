@@ -1,10 +1,10 @@
 <template>
     <el-collapse v-model="activeName" @change="handleChange" class="form_template">
         <el-collapse-item :title="item.title" :name="index" v-for="(item,index) in list">
-            <draggable :list="item.componentList" :group="groupA" animation="300" :clone="handleClone" :sort="false"
+            <draggable :list="item.componentList" :group="groupA" :clone="handleClone" :sort="false" @move="handleMove"
                 item-key="id" v-if="item.componentList.length">
                 <template #item="{ element,index }">
-                    <span class="drag_li">{{ element.name }}</span>
+                    <div class="drag_li">{{ element.name }}</div>
                 </template>
             </draggable>
         </el-collapse-item>
@@ -16,16 +16,19 @@ import { ref, reactive, getCurrentInstance,defineComponent } from "vue";
 import componentData from "@/views/panelComponent/componentData.ts";
 import draggable from "vuedraggable"
 let activeName = ref([0]);
-const groupA = reactive({ name: "startBox", pull: "clone", put: true });
+const groupA = reactive({ name: "startBox", pull: "clone", put: false });
 function handleChange(val){
     console.log(activeName.value);
 }
 function handleClone(row){
     row.uid = setUid();
-    return row
+    return JSON.parse(JSON.stringify(row))
 }
 function setUid(){
     return Date.now();
+}
+function handleMove(dom){
+
 }
 const list = ref(componentData);
 </script>
@@ -36,8 +39,9 @@ const list = ref(componentData);
         font-weight: bold;
     }
 }
+
 .drag_li {
-    float: left;
+    display: inline-block;
     width: 100px;
     height: 32px;
     line-height: 32px;
@@ -47,6 +51,7 @@ const list = ref(componentData);
     cursor: move;
     user-select: none;
     margin-left: 12px;
+
     &:hover {
         background-color: #F2F2F1;
     }

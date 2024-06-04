@@ -3,12 +3,15 @@
 </template>
 
 <script setup>
-import { ref, toRefs, reactive, getCurrentInstance,defineComponent,defineProps,defineModel } from "vue";
+import { ref, toRefs, reactive, getCurrentInstance,defineComponent,defineModel,defineProps } from "vue";
 const model = defineModel({default:""})
-const props = defineProps({
-  
-});
 
+const props = defineProps({
+    componentContent:{
+        type:Object
+    }
+})
+console.log(props);
 </script>
 
 <style scoped lang="scss"></style>
