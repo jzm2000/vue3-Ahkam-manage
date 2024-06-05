@@ -1,5 +1,10 @@
 <template>
-  <el-input v-model="model"/>
+  <el-input v-model="model" :prefixIcon="props.componentContent.prefixIcon"
+    :suffixIcon="props.componentContent.suffixIcon">
+    <template #[props.componentContent.slotName]>
+      {{ props.componentContent.slotContent }}
+    </template>
+  </el-input>
 </template>
 
 <script setup>
@@ -11,7 +16,6 @@ const props = defineProps({
         type:Object
     }
 })
-console.log(props);
 </script>
 
 <style scoped lang="scss"></style>

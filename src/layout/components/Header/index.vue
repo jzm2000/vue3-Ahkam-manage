@@ -4,19 +4,61 @@
     <div class="operation_btns">
       <div class="left_device"></div>
       <div class="right_function">
-        <el-button type="primary">清空组件</el-button>
-        <el-button>预览</el-button>
+        <el-button type="primary" @click="clearComponent">清空组件</el-button>
+        <el-button @click="handlePreview">预览</el-button>
         <el-button>导入</el-button>
-        <el-button>导出</el-button>
+        <el-button @click="handleExportCode">导出代码</el-button>
+        <el-button @click="testDialog=true">测试表单</el-button>
       </div>
     </div>
     <div class="panel_header"></div>
   </div>
+  <previewForm v-model="formVisible"></previewForm>
+  <exportCode v-model="codeVisible"></exportCode>
+  <!-- 测试代码 -->
+  <test v-model="testDialog"></test>
 </template>
-
 <script setup lang="ts">
+import {ref} from "vue"
+import previewForm from "./previewForm.vue";
+import exportCode from "./exportCode.vue"
+import test from "@/views/test.vue"
+import { ElMessageBox,ElMessage } from "element-plus";
+import useAppStore from "@/stores/app.ts";
+import { storeToRefs } from "pinia";
+const appStore = useAppStore();
+const {AppData} = storeToRefs(appStore)
+let formVisible = ref<boolean>(false);
+let codeVisible = ref<boolean>(false);
+let testDialog = ref<boolean>(false)
+function clearComponent(){
+  ElMessageBox.confirm(
+    '是否清空?',
+    '提示',
+    {
+      confirmButtonText: '确认',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      ElMessage({
+        type: 'success',
+        message: '操作成功',
+      });
+      appStore.delAppData();
+    })
+    .catch(() => {
 
+    })
 
+}
+function handleExportCode(){
+  codeVisible.value = true;
+}
+function handlePreview(){
+  formVisible.value = true;
+}
 </script>
 
 <style scoped lang="scss">

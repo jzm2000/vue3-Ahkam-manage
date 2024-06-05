@@ -24,6 +24,7 @@
                             clearable>
                             <el-option label="文本" value="text"></el-option>
                             <el-option label="密码" value="password"></el-option>
+                            <el-option label="文本域" value="textarea"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="占位内容：" prop="placeholder">
@@ -59,7 +60,7 @@ const baseForm = reactive({
 const baseRefForm = ref<string>("")
 const { currentComponent } = storeToRefs(appStore);
 const {AppData} = storeToRefs(appStore);
-console.log(AppData);
+
 function handleChange(){
     
 }

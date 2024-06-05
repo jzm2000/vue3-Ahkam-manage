@@ -9,6 +9,7 @@ export default defineStore("appStore", {
         formName: "formSetting",
         RefFormName: "formRef",
         rulesName: "rules",
+        isDisabled: false,
         AppList: [],
       },
       currentComponent: {
@@ -38,6 +39,7 @@ export default defineStore("appStore", {
             formName: "formSetting",
             RefFormName: "formRef",
             rulesName: "rules",
+            isDisabled: false,
             AppList: [
               {
                 type: "JInput",
@@ -53,6 +55,17 @@ export default defineStore("appStore", {
                   labelWidth: 0,
                   labelPosition: "left",
                   placeholder: "请输入姓名",
+                  slotName: "",
+                  slotContent: "",
+                  suffixIcon: "",
+                  prefixIcon: "",
+                  maxLength: "",
+                  minLength: "",
+                  showWordLimit: false,
+                  clearable: false,
+                  showPassword: false,
+                  resize: "", //'none' | 'both' | 'horizontal' | 'vertical'
+                  rows: 4,
                   prop: "",
                   isRequired: false,
                   isDisabled: false,
@@ -208,6 +221,17 @@ export default defineStore("appStore", {
   actions: {
     setAppData(item){
       this.AppData = item.tempInfo;
+    },
+    delAppData(){
+      this.AppData = {
+        size: "default",
+        labelPosition: "left",
+        labelWidth: 0,
+        formName: "formSetting",
+        RefFormName: "formRef",
+        rulesName: "rules",
+        AppList: [],
+      };
     },
     setCurrentComponent(uid) {
       this.currentComponent = this.AppData.AppList.find((e) => e.uid == uid);

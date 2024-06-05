@@ -13,9 +13,7 @@ const props = defineProps({
 })
 import useAppStore from "@/stores/app.ts";
 const appStore = useAppStore();
-console.log(props.componentContent);
 const model = defineModel();
-console.log(model);
 </script>
 
 <style scoped lang="scss"></style>

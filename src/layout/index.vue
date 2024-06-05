@@ -36,7 +36,6 @@
                                             <div class="operation_btn"></div>
                                         </div>
                                     </template>
-
                                 </draggable>
                             </el-form>
                         </el-scrollbar>

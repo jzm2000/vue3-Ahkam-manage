@@ -13,9 +13,7 @@ import {ref} from "vue";
 import useAppStore from "@/stores/app.ts"
 import {storeToRefs} from "pinia";
 const appStore  = useAppStore();
-console.log(appStore);
 const {templateList} = storeToRefs(appStore);
-console.log(templateList);
 
 function handleSelect(item){
   appStore.setAppData(item);
