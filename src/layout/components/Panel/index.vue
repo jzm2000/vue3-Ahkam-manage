@@ -4,7 +4,9 @@
       <el-tab-pane label="组件设置" name="moduleSetting"></el-tab-pane>
       <el-tab-pane label="表单设置" name="formSetting"></el-tab-pane>
     </el-tabs>
-    <component :is="componentTabs.get(activeName)"></component>
+    <el-scrollbar style="height: calc(100vh - 114px);">
+      <component :is="componentTabs.get(activeName)"></component>
+    </el-scrollbar>
   </div>
 </template>
 

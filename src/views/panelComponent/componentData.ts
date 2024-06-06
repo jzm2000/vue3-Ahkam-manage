@@ -8,8 +8,17 @@ const componetData: componetDataType[] = [
         icon: "",
         componentContent: {
           InputType: "text",
-          slotName: "",
-          slotContent: "",
+          slotName: "", //具名插槽
+          slotContent: "", //插槽内容
+          suffixIcon: "", //前缀图标
+          prefixIcon: "", //后缀图标
+          maxLength: "", //最大长度
+          minLength: "", //最小长度
+          showWordLimit: false, //显示输入字符长度
+          clearable: false, //是否清空
+          showPassword: false,
+          resize: "horizontal", //'none' | 'both' | 'horizontal' | 'vertical'
+          rows: 4,
           variateName: "",
           defaultValue: "",
           width: "",
@@ -22,35 +31,16 @@ const componetData: componetDataType[] = [
           isRequired: false,
           isDisabled: false,
           verifyMsg: "",
+          isCustomVerify: true,
           customVerify: "",
         },
       },
-      // {
-      //   type: "JInput",
-      //   name: "文本域",
-      //   icon: "",
-      //   componentContent: {
-      //     InputType: "textarea",
-      //     variateName: "",
-      //     defaultValue: "",
-      //     width: "",
-      //     size: "",
-      //     label: "文本域",
-      //     labelWidth: 0,
-      //     labelPosition: "left",
-      //     placeholder: "请输入",
-      //     prop: "",
-      //     isRequired: false,
-      //     isDisabled: false,
-      //     verifyMsg: "",
-      //     customVerify: "",
-      //   },
-      // },
       {
         type: "JRadio",
         name: "单选框",
         icon: "",
         componentContent: {
+          radioType:"radio",
           variateName: "",
           defaultValue: "",
           width: "",
@@ -58,11 +48,14 @@ const componetData: componetDataType[] = [
           label: "单选框",
           labelWidth: 0,
           labelPosition: "left",
-          placeholder: "请输入",
+          border:false,
+          textColor:"#ffffff",
+          fill:"#409EFF",
           prop: "",
           isRequired: false,
           isDisabled: false,
           verifyMsg: "",
+          isCustomVerify: true,
           customVerify: "",
           options: [
             {

@@ -61,10 +61,10 @@ export default defineStore("appStore", {
                   prefixIcon: "",
                   maxLength: "",
                   minLength: "",
-                  showWordLimit: false,
+                  showWordLimit: true,
                   clearable: false,
                   showPassword: false,
-                  resize: "", //'none' | 'both' | 'horizontal' | 'vertical'
+                  resize: "none", //'none' | 'both' | 'horizontal' | 'vertical'
                   rows: 4,
                   prop: "",
                   isRequired: false,

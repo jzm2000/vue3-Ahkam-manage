@@ -8,15 +8,15 @@
 import { defineModel,ref,watch } from "vue"
 import {storeToRefs} from "pinia"
 import useAppStore from "@/stores/app.ts"
+import { ElMessage } from "element-plus";
 const appStore = useAppStore();
 const { AppData } = storeToRefs(appStore);
 let model = defineModel();
 let template =  ref<string>("");
 function handleCopyCodeSuccess(val){
-    console.log(val);
+    ElMessage.success("复制成功")
 }
 function setValue(val){
-    console.log(Object.prototype.toString.call(val));
     if(Object.prototype.toString.call(val) == '[object String]'){
         if(!val) return "''"
         return val
@@ -37,12 +37,19 @@ watch(model,(val)=>{
     let ElFormItem = "";
     let styleContent = "";
     let variateData = "";
+    let verifyData = "";
+    let customVerify = "";
     let scriptContent = "";
 
     for(let i = 0;i<arr.length;i++){
         const {componentContent} = arr[i];
-        variateData+=`${componentContent.variateName}:${setValue(componentContent.defaultValue)}
+        variateData+=`${componentContent.variateName}:${setValue(componentContent.defaultValue)},
         `
+        verifyData+=`${componentContent.variateName}:{required:${componentContent.isRequired},${!componentContent.isCustomVerify ? `message:"${componentContent.verifyMsg}",` : ''}trigger:"blur"${componentContent.isCustomVerify ? `,validator:${componentContent.variateName}Rule` : ''}},
+        `
+        if(componentContent.customVerify){
+            customVerify+=`${componentContent.customVerify}\n`
+        }
         switch(arr[i].type){
             case "JInput":
                 ElFormItem +=`
@@ -109,7 +116,11 @@ watch(model,(val)=>{
     }
     scriptContent = `const ${formName} = reactive({
         ${variateData}
-    })`
+    })
+${customVerify}
+const ${AppData.value.rulesName} = {
+    ${verifyData}
+}`
     let temp =`\`\`\`vue
 <template>
     <el-form 
@@ -121,10 +132,11 @@ watch(model,(val)=>{
         size="${AppData.value.size}" 
         :disabled="${AppData.value.isDisabled}"
     >
-    ${ElFormItem}
+${ElFormItem}
     </el-form>
 </template>
 <script setup>
+import { reactive } from "vue"
   ${scriptContent}
 </\script>
 <style lang="scss" scoped></\style>

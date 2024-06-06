@@ -3,7 +3,7 @@
         <div>
             <el-form :model="form" ref="formRef" :rules="AppData.rules" :label-width="AppData.labelWidth"
                 :label-position="AppData.labelPosition" :size="AppData.size">
-                <el-form-item :label="item.componentContent.label" :label-width="item.componentContent.labelWidth"
+                <el-form-item :label="item.componentContent.label" :label-width="item.componentContent.labelWidth" :required="item.componentContent.isRequired"
                     :key="item.uid" v-for="(item,index) in form.AppList" :prop="`AppList[${index}].componentContent.defaultValue`">
                     <component :is="item.type" :key="item.uid"
                         :type="item.type=='JInput' ? item.componentContent.InputType : ''"
@@ -41,11 +41,12 @@ const formData = reactive({});
 let formName = ref(AppData.formName);
 for(let val in AppData.value){
         form[val] = JSON.parse(JSON.stringify(AppData.value[val]))
-    };
+};
 watch(formVisible,(val)=>{
     for(let val in AppData.value){
         form[val] = JSON.parse(JSON.stringify(AppData.value[val]))
     };
+
 })
 function handleReset(){
     formRef.value.resetFields();
