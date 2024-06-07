@@ -15,7 +15,7 @@ const componetData: componetDataType[] = [
           maxLength: "", //最大长度
           minLength: "", //最小长度
           showWordLimit: false, //显示输入字符长度
-          clearable: false, //是否清空
+          clearable: true, //是否清空
           showPassword: false,
           resize: "horizontal", //'none' | 'both' | 'horizontal' | 'vertical'
           rows: 4,
@@ -29,9 +29,9 @@ const componetData: componetDataType[] = [
           placeholder: "请输入",
           prop: "",
           isRequired: false,
-          isDisabled: false,
+          disabled: false,
           verifyMsg: "",
-          isCustomVerify: true,
+          isCustomVerify: false, //自定义校验规则
           customVerify: "",
         },
       },
@@ -40,7 +40,7 @@ const componetData: componetDataType[] = [
         name: "单选框",
         icon: "",
         componentContent: {
-          radioType:"radio",
+          radioType: "radio",
           variateName: "",
           defaultValue: "",
           width: "",
@@ -48,22 +48,22 @@ const componetData: componetDataType[] = [
           label: "单选框",
           labelWidth: 0,
           labelPosition: "left",
-          border:false,
-          textColor:"#ffffff",
-          fill:"#409EFF",
+          border: false,
+          textColor: "#ffffff",
+          fill: "#409EFF",
           prop: "",
           isRequired: false,
-          isDisabled: false,
+          disabled: false,
           verifyMsg: "",
-          isCustomVerify: true,
+          isCustomVerify: false,
           customVerify: "",
           options: [
             {
-              label: "选项一",
+              label: "选项1",
               value: 1,
             },
             {
-              label: "选项二",
+              label: "选项2",
               value: 2,
             },
           ],
@@ -74,6 +74,7 @@ const componetData: componetDataType[] = [
         name: "多选框",
         icon: "",
         componentContent: {
+          checkBoxType: "checkbox",
           variateName: "",
           defaultValue: [],
           width: "",
@@ -81,19 +82,24 @@ const componetData: componetDataType[] = [
           label: "多选框",
           labelWidth: 0,
           labelPosition: "left",
+          border: false,
+          min: 0,
+          max: 0,
+          textColor: "#ffffff",
+          fill: "#409eff",
           placeholder: "请输入",
           prop: "",
           isRequired: false,
-          isDisabled: false,
+          disabled: false,
           verifyMsg: "",
           customVerify: "",
           options: [
             {
-              label: "选项一",
+              label: "选项1",
               value: 1,
             },
             {
-              label: "选项二",
+              label: "选项2",
               value: 2,
             },
           ],
@@ -111,19 +117,26 @@ const componetData: componetDataType[] = [
           label: "下拉选项",
           labelWidth: 0,
           labelPosition: "left",
-          placeholder: "请输入",
+          clearable:true,
+          multiple:false,
+          collapseTags: false,/** 多选时是否将选中值按文字的形式展示 */
+          collapseTagsTooltip:false,/**显示所有选中的标签 */
+          multipleLimit:0,/**多选限制数量 */
+          effect:"light", /**tooltip主题：dark、light */
+          filterable:false,
+          placeholder: "请选择",
           prop: "",
           isRequired: false,
-          isDisabled: false,
+          disabled: false,
           verifyMsg: "",
           customVerify: "",
           options: [
             {
-              label: "选项一",
+              label: "选项1",
               value: 1,
             },
             {
-              label: "选项二",
+              label: "选项2",
               value: 2,
             },
           ],

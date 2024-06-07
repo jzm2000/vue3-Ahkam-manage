@@ -3,11 +3,12 @@
         <div>
             <el-form :model="form" ref="formRef" :rules="AppData.rules" :label-width="AppData.labelWidth"
                 :label-position="AppData.labelPosition" :size="AppData.size">
-                <el-form-item :label="item.componentContent.label" :label-width="item.componentContent.labelWidth" :required="item.componentContent.isRequired"
-                    :key="item.uid" v-for="(item,index) in form.AppList" :prop="`AppList[${index}].componentContent.defaultValue`">
+                <el-form-item :label="item.componentContent.label" :label-width="item.componentContent.labelWidth"
+                    :required="item.componentContent.isRequired" :key="item.uid" v-for="(item,index) in form.AppList"
+                    :prop="`AppList[${index}].componentContent.defaultValue`">
                     <component :is="item.type" :key="item.uid"
                         :type="item.type=='JInput' ? item.componentContent.InputType : ''"
-                        :placeholder="item.componentContent.placeholder" :size="item.componentContent.size"
+                        :size="item.componentContent.size" :disabled="item.componentContent.disabled"
                         :componentContent="item.componentContent" v-model="item.componentContent.defaultValue">
                     </component>
                 </el-form-item>

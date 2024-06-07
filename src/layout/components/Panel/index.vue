@@ -5,24 +5,26 @@
       <el-tab-pane label="表单设置" name="formSetting"></el-tab-pane>
     </el-tabs>
     <el-scrollbar style="height: calc(100vh - 114px);">
-      <component :is="componentTabs.get(activeName)"></component>
+      <keep-alive :include="[...componentTabs.keys()]">
+        <component :is="componentTabs.get(activeName)"></component>
+      </keep-alive>
     </el-scrollbar>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref,watch } from 'vue'
+import { ref } from 'vue'
 import {storeToRefs} from "pinia"
 import formSetting from "./formSetting.vue"
 import moduleSetting from "./moduleSetting.vue"
 import useAppStore from "@/stores/app.ts"
-const componentTabs = new Map([
+
+const componentTabs:Map<string,typeof moduleSetting> = new Map([
   ['moduleSetting',moduleSetting],
   ['formSetting',formSetting]
 ])
 const appStore = useAppStore();
 let activeName = ref<string>("moduleSetting");
-
 </script>
 
 <style scoped lang="scss">

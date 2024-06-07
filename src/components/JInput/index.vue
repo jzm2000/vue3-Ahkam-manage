@@ -9,15 +9,12 @@
   </el-input>
 </template>
 
-<script setup>
-import { ref, toRefs, reactive, getCurrentInstance,defineComponent,defineModel,defineProps } from "vue";
-const model = defineModel({default:""})
-
-const props = defineProps({
-    componentContent:{
-        type:Object
-    }
-})
+<script setup lang="ts">
+import { defineModel,defineProps } from "vue";
+import type { PropsType } from "../../interface/component.ts"
+const model = defineModel({ default: "" })
+const props = defineProps<PropsType>();
+console.log(props);
 </script>
-
+ 
 <style scoped lang="scss"></style>

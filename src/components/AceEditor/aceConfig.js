@@ -12,36 +12,36 @@ import themeMonokaiUrl from "ace-builds/src-noconflict/theme-monokai?url";
 ace.config.setModuleUrl("ace/theme/monokai", themeMonokaiUrl);
 
 // 导入不同语言的语法模式模块，并设置对应 URL (所有支持的主题和模式：node_modules/ace-builds/src-noconflict)
-// import modeJsonUrl from "ace-builds/src-noconflict/mode-json?url";
-// ace.config.setModuleUrl("ace/mode/json", modeJsonUrl);
+import modeJsonUrl from "ace-builds/src-noconflict/mode-json?url";
+ace.config.setModuleUrl("ace/mode/json", modeJsonUrl);
 
 import modeJavascriptUrl from "ace-builds/src-noconflict/mode-javascript?url";
 ace.config.setModuleUrl("ace/mode/javascript", modeJavascriptUrl);
 
 import modeTypeScriptUrl from "ace-builds/src-noconflict/mode-typescript?url";
 ace.config.setModuleUrl("ace/mode/typescript", modeTypeScriptUrl);
-// import modeHtmlUrl from "ace-builds/src-noconflict/mode-html?url";
-// ace.config.setModuleUrl("ace/mode/html", modeHtmlUrl);
+import modeHtmlUrl from "ace-builds/src-noconflict/mode-html?url";
+ace.config.setModuleUrl("ace/mode/html", modeHtmlUrl);
 
 // import modePythonUrl from "ace-builds/src-noconflict/mode-python?url";
 // ace.config.setModuleUrl("ace/mode/yaml", modePythonUrl);
 
 // 用于完成语法检查、代码提示、自动补全等代码编辑功能，必须注册模块 ace/mode/lang _ worker，并设置选项 useWorker: true
-// import workerBaseUrl from "ace-builds/src-noconflict/worker-base?url";
-// ace.config.setModuleUrl("ace/mode/base", workerBaseUrl);
+import workerBaseUrl from "ace-builds/src-noconflict/worker-base?url";
+ace.config.setModuleUrl("ace/mode/base", workerBaseUrl);
 
-// import workerJsonUrl from "ace-builds/src-noconflict/worker-json?url"; // for vite
-// ace.config.setModuleUrl("ace/mode/json_worker", workerJsonUrl);
+import workerJsonUrl from "ace-builds/src-noconflict/worker-json?url"; // for vite
+ace.config.setModuleUrl("ace/mode/json_worker", workerJsonUrl);
 
 import workerJavascriptUrl from "ace-builds/src-noconflict/worker-javascript?url";
 ace.config.setModuleUrl("ace/mode/javascript_worker", workerJavascriptUrl);
 
-// import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
-// ace.config.setModuleUrl("ace/mode/html_worker", workerHtmlUrl);
+import workerHtmlUrl from "ace-builds/src-noconflict/worker-html?url";
+ace.config.setModuleUrl("ace/mode/html_worker", workerHtmlUrl);
 
 // 导入不同语言的代码片段，提供代码自动补全和代码块功能
-// import snippetsJsonUrl from "ace-builds/src-noconflict/snippets/json?url";
-// ace.config.setModuleUrl("ace/snippets/json", snippetsJsonUrl);
+import snippetsJsonUrl from "ace-builds/src-noconflict/snippets/json?url";
+ace.config.setModuleUrl("ace/snippets/json", snippetsJsonUrl);
 
 import snippetsJsUrl from "ace-builds/src-noconflict/snippets/javascript?url";
 ace.config.setModuleUrl("ace/snippets/javascript", snippetsJsUrl);

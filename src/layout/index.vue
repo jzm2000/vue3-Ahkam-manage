@@ -19,12 +19,13 @@
                                     <template #item="{ element:{componentContent,uid,type,name} }">
                                         <div class="page_list-item" @click="selectComponent(uid,componentContent,type)"
                                             :class="{actived:id==uid}">
-                                            <el-form-item :label="componentContent.label" :required="componentContent.isRequired"
+                                            <el-form-item :label="componentContent.label"
+                                                :required="componentContent.isRequired"
                                                 :label-width="componentContent.labelWidth" :key="uid">
                                                 <component :is="type" :key="uid"
                                                     :type="type=='JInput' ? componentContent.InputType : ''"
                                                     :size="componentContent.size" :componentContent="componentContent"
-                                                    :disable="componentContent.isDisabled"
+                                                    :disabled="componentContent.disabled"
                                                     v-model="componentContent.defaultValue"></component>
                                             </el-form-item>
                                             <div class="move_area move" v-show="id===uid">

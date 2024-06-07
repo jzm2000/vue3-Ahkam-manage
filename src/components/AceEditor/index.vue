@@ -1,8 +1,8 @@
 <template>
   <el-dialog v-model="visible" title="校验规则" width="600px" :close-on-click-modal="false">
     <span class="warning">校验方法名应该为对应的变量名加Rule,例如(name)，const nameRule = (rule, value, callback) => {}</span>
-    <VAceEditor v-model:value="content" theme="monokai" ref="editor" :options="options" class="vue-ace-editor"
-      lang="javascript">
+    <VAceEditor v-model:value="content" theme="monokai" ref="editor" :options="options" class="vue-ace-editor" @change="handleInput"
+      :lang="props.lang">
     </VAceEditor>
     <template #footer>
       <el-button type="primary" @click="handleSave">语法校验</el-button>
@@ -13,14 +13,22 @@
 <script setup lang="ts">
 import "./aceConfig.js"
 import {ElMessage} from "element-plus"
-import {ref,reactive,defineModel,onMounted,watch} from "vue";
+import {ref,reactive,defineModel,onMounted,watch,defineProps} from "vue";
 import { VAceEditor } from "vue3-ace-editor";
 import type { Ace } from "ace-builds";
-import { l } from "vite/dist/node/types.d-aGj9QkWt.js";
-let visible = defineModel("visible",{default:""});
+let visible = defineModel("visible",{default:false});
 let content = defineModel("content",{default:""});
 let editor = ref();
-
+let props = defineProps({
+  lang:{
+    type:String,
+    default:"javascript"
+  },
+  content:{
+    
+  }
+})
+const emit = defineEmits(["handleInput"])
 const options: Partial<Ace.EditorOptions> = reactive({
   useWorker: true, // 启用语法检查,必须为true
   enableBasicAutocompletion: true, // 自动补全
@@ -56,8 +64,34 @@ function handleSave(){
     })
   }
 }
+function handleInput(val,editor){
+  let inputVal = editor.getValue()
+  if(isJson(inputVal)){
+    emit("handleInput",JSON.parse(inputVal));
+  }else{
+    console.log("语法错误");
+  }
+};
+function isJson(val){
+    if(typeof val == 'string'){
+       try{
+         let obj = JSON.parse(val);
+          if(typeof obj == 'object' && obj){
+            return true;
+          }
+          return false
+       }catch(e){
+        return false
+       }
+    }else{
+      return false
+    }
+}
+watch(()=>props.content,(val:any)=>{
+  content.value = val
+},{deep:true,immediate:true})
 onMounted(()=>{
-  
+
 })
 </script>
 

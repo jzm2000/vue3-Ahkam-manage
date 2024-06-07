@@ -9,16 +9,11 @@
     </el-radio-group>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, defineModel, defineProps } from "vue";
-const props = defineProps({
-    componentContent: {
-        type: Object
-    }
-})
-import useAppStore from "@/stores/app.ts";
-const appStore = useAppStore();
-const model = defineModel({ default: "" });
+import type { PropsType } from "../../interface/component.ts"
+const model = defineModel({ default: "" })
+const props = defineProps<PropsType>();
 </script>
 
 <style scoped lang="scss"></style>
