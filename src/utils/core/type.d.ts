@@ -1,3 +1,4 @@
+
 interface GameConfigType {
   // 槽容量
   slotNum: number;
@@ -33,8 +34,8 @@ interface componentListType {
   type: String;
   name: String;
   icon: String;
-  InputType?:String,
-  componentContent?:Object
+  InputType?: String;
+  componentContent?: Object;
 }
 interface componetDataType {
   title: String;

@@ -2,7 +2,12 @@
   <div class="header">
     <div class="aside_header"></div>
     <div class="operation_btns">
-      <div class="left_device"></div>
+      <div class="left_device">
+        <el-radio-group v-model="device">
+          <el-radio-button label="PC" :value="1"></el-radio-button>
+          <el-radio-button label="H5" :value="2"></el-radio-button>
+        </el-radio-group>
+      </div>
       <div class="right_function">
         <el-button type="primary" @click="clearComponent">清空组件</el-button>
         <el-button @click="handlePreview">预览</el-button>
@@ -26,7 +31,9 @@ import test from "@/views/test.vue"
 import { ElMessageBox,ElMessage } from "element-plus";
 import useAppStore from "@/stores/app.ts";
 import { storeToRefs } from "pinia";
+
 const appStore = useAppStore();
+let device = ref();
 const {AppData} = storeToRefs(appStore)
 let formVisible = ref<boolean>(false);
 let codeVisible = ref<boolean>(false);

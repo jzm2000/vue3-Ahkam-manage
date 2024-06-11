@@ -52,7 +52,7 @@
         </el-container>
     </div>
 </template>
-<script>
+<script lang="ts">
 import draggable from "vuedraggable"
 import ASide from "./components/ASide/index.vue"
 import Header from "./components/Header/index.vue"
@@ -62,17 +62,21 @@ import { storeToRefs } from "pinia"
 import useAppStore from "@/stores/app.ts"
 // import JInput from "@/components/JInput/index.vue";
 import componentData from "@/views/panelComponent/componentData.ts";
+interface GroupType {
+    name:String;
+    pull:boolean;
+    put:boolean;
+}
 export default defineComponent({
     components: {
         Header,
         ASide,
         Panel,
         draggable,
-        
     },
     setup() {
         const appStore = useAppStore();
-        const groupB = reactive({ name: "startBox", pull: false,put:true });
+        const groupB:GroupType = reactive({ name: "startBox", pull: false,put:true });
         const formSetting = reactive({
 
         });

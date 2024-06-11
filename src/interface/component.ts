@@ -2,7 +2,7 @@ interface OptionType {
   label:string
   value:number | string
 }
-interface componentContentType {
+export interface componentContentType {
   inputType?: string;
   radioType?: string;
   variateName: string;
@@ -15,12 +15,12 @@ interface componentContentType {
   border?: boolean;
   textColor?: string;
   fill?: string;
-  prop: string;
-  isRequired: boolean;
-  isDisabled: boolean;
-  verifyMsg: string;
-  isCustomVerify: boolean;
-  customVerify: string;
+  prop?: string;
+  isRequired?: boolean;
+  isDisabled?: boolean;
+  verifyMsg?: string;
+  isCustomVerify?: boolean;
+  customVerify?: string;
   options?: OptionType[];
   [key: string]: any;
 };

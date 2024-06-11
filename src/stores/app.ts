@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import type { componentContentType } from "@/interface/component";
 export default defineStore("appStore", {
   state: () => {
     return {
@@ -16,6 +17,7 @@ export default defineStore("appStore", {
         type: "JInput",
         name: "输入框",
         icon: "",
+        uid:"",
         componentContent: {
           InputType: "text",
           variateName: "",
@@ -27,7 +29,7 @@ export default defineStore("appStore", {
           labelPosition: "left",
           placeholder: "请输入",
           prop: "",
-        },
+        } as componentContentType,
       },
       templateList: [
         {
