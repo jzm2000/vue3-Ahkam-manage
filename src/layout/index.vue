@@ -16,24 +16,28 @@
                                 :label-position="AppData.labelPosition" :size="AppData.size">
                                 <draggable :list="AppData.AppList" :group="groupB" animation="300" handle=".move"
                                     @add="handleAdd" class="draggable_content" item-key="uid" @end="handleMove">
-                                    <template #item="{ element:{componentContent,uid,type,name} }">
-                                        <div class="page_list-item" @click="selectComponent(uid,componentContent,type)"
+                                    <template #item="{ element:{componentContent,uid,type,name},index }">
+                                        <div class="page_list-item" @click.stop="selectComponent(uid,componentContent,type)"
                                             :class="{actived:id==uid}">
                                             <el-form-item :label="componentContent.label"
                                                 :required="componentContent.isRequired"
                                                 :label-width="componentContent.labelWidth" :key="uid">
                                                 <component :is="type" :key="uid"
-                                                    :type="type=='JInput' ? componentContent.InputType : ''"
                                                     :size="componentContent.size" :componentContent="componentContent"
                                                     :disabled="componentContent.disabled"
-                                                    v-model="componentContent.defaultValue"></component>
+                                                    v-model="componentContent.defaultValue" class="component_style">
+                                                </component>
+                                                <div class="operation_btn" v-show="id===uid">
+                                                    <el-icon @click.stop="handleDelete(index)">
+                                                        <Delete />
+                                                    </el-icon>
+                                                </div>
                                             </el-form-item>
                                             <div class="move_area move" v-show="id===uid">
                                                 <el-icon>
                                                     <Rank />
                                                 </el-icon>{{ name }}
                                             </div>
-                                            <div class="operation_btn"></div>
                                         </div>
                                     </template>
                                 </draggable>
@@ -83,6 +87,11 @@ export default defineComponent({
         function handleAdd(val){
             console.log('add',val);
         }
+        function handleDelete(index){
+            appStore.delCurrentComponent(index).then(uid=>{
+                this.selectComponent(uid);
+            }).catch(e=>{})
+        }
         const { AppData } = storeToRefs(appStore)
         console.log("AppData",AppData);
         return {
@@ -92,7 +101,8 @@ export default defineComponent({
             id,
             handleMove,
             handleAdd,
-            selectComponent
+            selectComponent,
+            handleDelete
         }
     }
 })
@@ -120,6 +130,22 @@ export default defineComponent({
             opacity:1;
         }
     }
+    .operation_btn{
+        display:block;
+        flex-basis: 30px;
+        text-align: center;
+        z-index: 99;
+        background-color: #409EFF;
+        font-size: 18px;
+        i{
+            cursor: pointer;
+            color: #fff;
+        }
+    }
+    .component_style{
+        flex: 1;
+    }
+    
 }
 .page_list-item.actived{
     outline-color:#409EFF;
@@ -163,10 +189,6 @@ export default defineComponent({
     &:hover {
         background-color: #F2F2F1;
     }
-}
-.drag_class{
-    width:100%;
-    cursor: move;
 }
 .move{
     cursor:move;

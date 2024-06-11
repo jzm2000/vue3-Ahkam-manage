@@ -1,5 +1,5 @@
 <template>
-    <div class="module_setting" v-if="AppData.AppList.length&&currentComponent.uid">
+    <div class="module_setting" v-if="AppData.AppList.length&&currentComponent?.uid">
         <el-collapse v-model="activeName" @change="handleChange" class="form_template">
             <el-form :model="baseForm" ref="baseForm" label-position="right" :rules="rules" label-width="100px"
                 size="default">
@@ -129,7 +129,7 @@
                         </el-form-item>
                     </div>
                     <!-- select类型 -->
-                    <div v-show="currentComponent.type='JSelect'">
+                    <div v-show="currentComponent.type=='JSelect'">
                         <el-form-item label="是否多选：">
                             <el-switch v-model="currentComponent.componentContent.multiple" @change="selectMultiple"/>
                         </el-form-item>

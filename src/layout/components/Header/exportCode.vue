@@ -54,27 +54,28 @@ watch(model,(val)=>{
             case "JInput":
                 ElFormItem +=`
             <el-form-item label="${componentContent.label}" prop="${componentContent.variateName}" label-width="${componentContent.labelWidth || '' }">
-                <el-input 
-                  v-model="${formName+'.'+componentContent.variateName}"
-                  type="${componentContent.InputType}"
-                  placeholder="${componentContent.placeholder}"
-                  size="${componentContent.size}"
-                  :disabled="${componentContent.isDisabled}"
-                /> 
+                <el-input ${componentContent.InputType ? `type="${componentContent.InputType}"` :''} v-model="${formName+'.'+componentContent.variateName}" ${componentContent.prefixIcon ? `prefixIcon="${componentContent.prefixIcon}"`:''} placeholder="${componentContent.placeholder}" ${componentContent.suffixIcon ? `suffixIcon="${componentContent.suffixIcon}"` : ''} ${componentContent.maxLength ? `:maxlength="${componentContent.maxLength}"` : ''} ${componentContent.minLength ? `:minlength="${componentContent.minLength}"` : ''} ${componentContent.showWordLimit ? `:show-word-limit="${componentContent.showWordLimit}"` : ''} ${componentContent.clearable ? `:clearable="${componentContent.clearable}"` : ''} ${componentContent.showPassword ? `show-password="${componentContent.showPassword}"` : ''} ${componentContent.resize ? `resize="${componentContent.resize}"` : ''}>
+                    ${componentContent.slotName ? `<template #${componentContent.slotName}>
+                    {{ ${componentContent.slotContent} }}
+                    </template>` : ''}
+                </el-input>
             </el-form-item>`
                 break;
             case "JRadio":
                 let options = componentContent.options;
                 let radioOptions = ""
                 for(let j=0;j<options.length;j++){
-                    radioOptions+=`
-                    <el-radio label="${options[j].label}" value="${options[j].value}"></el-radio>`
+                    if(componentContent.radioType=='radio'){
+                        radioOptions+=`
+                    <el-radio label="${options[j].label}" value="${options[j].value}" ${componentContent.border ? `:border="${componentContent.border}"` : ''}></el-radio>`
+                    }else{
+                        radioOptions+=`
+                    <el-radio-button label="${options[j].label}" value="${options[j].value}"></el-radio-button>`
+                    }
                 }
                 ElFormItem += `
             <el-form-item label="${componentContent.label}" prop="${componentContent.variateName}" label-width="${componentContent.labelWidth || ''}">
-                <el-radio-group 
-                  v-model="${formName+'.'+componentContent.variateName}" 
-                  :disabled="${componentContent.isDisabled}"
+                <el-radio-group v-model="${formName+'.'+componentContent.variateName}" ${componentContent.disabled ? `:disabled="${componentContent.disabled}"` : ''} ${componentContent.size ? `size="${componentContent.size}"` : ''} ${componentContent.textColor&&componentContent.radioType == 'button' ? `text-color="${componentContent.radioType == 'button' ? componentContent.textColor : ''}"` : ''} ${componentContent.fill&&componentContent.radioType == 'button' ? `fill="${componentContent.radioType == 'button' ? componentContent.fill : ''}"` : ''}
                 >${radioOptions}
                 </el-radio-group>
             </el-form-item>`
@@ -88,10 +89,7 @@ watch(model,(val)=>{
                 }
                 ElFormItem += `
             <el-form-item label="${componentContent.label}" prop="${componentContent.variateName}" label-width="${componentContent.labelWidth || ''}">
-                <el-select 
-                  v-model="${formName+'.'+componentContent.variateName}" 
-                  :disabled="${componentContent.isDisabled}" 
-                  placeholder="${componentContent.placeholder}"
+                <el-select v-model="${formName+'.'+componentContent.variateName}" ${componentContent.multiple ? `:multiple="${componentContent.multiple}"` : ''} ${componentContent.clearable ? `:clearable="${componentContent.clearable}"` : ''} ${componentContent.collapseTags ? `:collapse-tags="${componentContent.collapseTags}"`:''} ${componentContent.multipleLimit ? `:multiple-limit="${componentContent.multipleLimit}"` : ''} ${componentContent.effect ? `effect="${componentContent.effect}"` : ''} ${componentContent.filterable ? `:filterable="${componentContent.filterable}"` : ''} ${componentContent.collapseTagsTooltip ? `:collapse-tags-tooltip="${componentContent.collapseTagsTooltip}"` : ''} ${componentContent.placeholder ? `placeholder="${componentContent.placeholder}"` : ''} 
                 >${selectOptions}
                 </el-select>
             </el-form-item>`
@@ -100,14 +98,18 @@ watch(model,(val)=>{
                 let options3 = componentContent.options;
                 let checkBoxOptions = ""
                 for(let j=0;j<options3.length;j++){
-                    checkBoxOptions+=`
-                    <el-checkbox label="${options3[j].label}" value="${options3[j].value}"></el-checkbox>`
+                    if(componentContent.checkBoxType == 'checkbox'){
+                        checkBoxOptions+=`
+                    <el-checkbox label="${options3[j].label}" value="${options3[j].value}" ${componentContent.border ? `:border="${componentContent.border}"` : ''}></el-checkbox>`
+                    }else{
+                        checkBoxOptions+=`
+                    <el-checkbox-button label="${options3[j].label}" value="${options3[j].value}"></el-checkbox-button>`
+                    }
+                    
                 }
                 ElFormItem += `
             <el-form-item label="${componentContent.label}" prop="${componentContent.variateName}" label-width="${componentContent.labelWidth || ''}">
-                <el-checkbox-group 
-                  v-model="${formName+'.'+componentContent.variateName}" 
-                  :disabled="${componentContent.isDisabled}"
+                <el-checkbox-group v-model="${formName+'.'+componentContent.variateName}" ${componentContent.min ? `:min="${componentContent.min}"` : ''} ${componentContent.max ? `:max="${componentContent.max}"` : ''} ${componentContent.disabled ? `:disabled="${componentContent.disabled}"` : ''} ${componentContent.size ? `size="${componentContent.size}"` : ''} ${componentContent.textColor&&componentContent.checkBoxType == 'button' ? `text-color="${componentContent.checkBoxType == 'button' ? componentContent.textColor : ''}"` : ''} ${componentContent.fill&&componentContent.checkBoxType == 'button' ? `fill="${componentContent.checkBoxType == 'button' ? componentContent.fill : ''}"` : ''}
                 >${checkBoxOptions}
                 </el-checkbox-group>
             </el-form-item>`
