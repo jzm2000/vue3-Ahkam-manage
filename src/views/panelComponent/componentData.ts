@@ -117,13 +117,13 @@ const componetData: componetDataType[] = [
           label: "下拉选项",
           labelWidth: 0,
           labelPosition: "left",
-          clearable:true,
-          multiple:false,
-          collapseTags: false,/** 多选时是否将选中值按文字的形式展示 */
-          collapseTagsTooltip:false,/**显示所有选中的标签 */
-          multipleLimit:0,/**多选限制数量 */
-          effect:"light", /**tooltip主题：dark、light */
-          filterable:false,
+          clearable: true,
+          multiple: false,
+          collapseTags: false /** 多选时是否将选中值按文字的形式展示 */,
+          collapseTagsTooltip: false /**显示所有选中的标签 */,
+          multipleLimit: 0 /**多选限制数量 */,
+          effect: "light" /**tooltip主题：dark、light */,
+          filterable: false,
           placeholder: "请选择",
           prop: "",
           isRequired: false,
@@ -142,21 +142,72 @@ const componetData: componetDataType[] = [
           ],
         },
       },
-      // {
-      //   type: "ElDate",
-      //   name: "时间选择器",
-      //   icon: "",
-      //   componentContent: {
-      //     variateName: "",
-      //     defaultValue: "",
-      //     width: "",
-      //     size: "default",
-      //     label: "输入框",
-      //     labelWidth: "auto",
-      //     placeholder: "请输入",
-      //     prop: "",
-      //   },
-      // },
+      {
+        type: "JDate",
+        name: "日期选择器",
+        icon: "",
+        componentContent: {
+          type: "year",
+          readonly: false,
+          editable: true,
+          startPlaceholder: "",
+          endPlaceholder: "",
+          arrowControl: false,
+          valueFormat: "",
+          prefixIcon: "",
+          clearIcon: "",
+          slotName: "", //具名插槽
+          slotContent: "", //插槽内容
+          clearable: true, //是否清空
+          variateName: "",
+          defaultValue: "",
+          width: "",
+          size: "",
+          label: "时间选择器",
+          labelWidth: 0,
+          labelPosition: "left",
+          placeholder: "请输入",
+          prop: "",
+          isRequired: false,
+          disabled: false,
+          verifyMsg: "",
+          isCustomVerify: false, //自定义校验规则
+          customVerify: "",
+        },
+      },
+      {
+        type: "JDateTime",
+        name: "日期时间选择器",
+        icon: "",
+        componentContent: {
+          type: "year",
+          readonly: false,
+          editable: true,
+          startPlaceholder: "",
+          endPlaceholder: "",
+          arrowControl: false,
+          valueFormat: "",
+          prefixIcon: "",
+          clearIcon: "",
+          slotName: "", //具名插槽
+          slotContent: "", //插槽内容
+          clearable: true, //是否清空
+          variateName: "",
+          defaultValue: "",
+          width: "",
+          size: "",
+          label: "日期时间选择器",
+          labelWidth: 0,
+          labelPosition: "left",
+          placeholder: "请输入",
+          prop: "",
+          isRequired: false,
+          disabled: false,
+          verifyMsg: "",
+          isCustomVerify: false, //自定义校验规则
+          customVerify: "",
+        },
+      },
     ],
   },
 ];

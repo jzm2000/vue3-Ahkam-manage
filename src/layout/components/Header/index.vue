@@ -1,9 +1,11 @@
 <template>
   <div class="header">
-    <div class="aside_header"></div>
+    <div class="aside_header">
+
+    </div>
     <div class="operation_btns">
       <div class="left_device">
-        <el-radio-group v-model="device">
+        <el-radio-group v-model="deviceType">
           <el-radio-button label="PC" :value="1"></el-radio-button>
           <el-radio-button label="H5" :value="2"></el-radio-button>
         </el-radio-group>
@@ -24,16 +26,16 @@
   <test v-model="testDialog"></test>
 </template>
 <script setup lang="ts">
-import {ref} from "vue"
+import {onMounted, ref} from "vue"
 import previewForm from "./previewForm.vue";
 import exportCode from "./exportCode.vue"
 import test from "@/views/test.vue"
 import { ElMessageBox,ElMessage } from "element-plus";
 import useAppStore from "@/stores/app.ts";
 import { storeToRefs } from "pinia";
-
 const appStore = useAppStore();
-let device = ref();
+let {deviceType} = storeToRefs(appStore);
+console.log(deviceType);
 const {AppData} = storeToRefs(appStore)
 let formVisible = ref<boolean>(false);
 let codeVisible = ref<boolean>(false);
@@ -66,6 +68,9 @@ function handleExportCode(){
 function handlePreview(){
   formVisible.value = true;
 }
+onMounted(()=>{
+  
+})
 </script>
 
 <style scoped lang="scss">
@@ -80,7 +85,8 @@ function handlePreview(){
     width:280px;
   }
   .operation_btns {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
     padding: 10px;
     flex: 1 auto;
   }

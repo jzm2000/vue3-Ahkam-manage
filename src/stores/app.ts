@@ -17,7 +17,7 @@ export default defineStore("appStore", {
         type: "JInput",
         name: "输入框",
         icon: "",
-        uid:"",
+        uid: "",
         componentContent: {
           InputType: "text",
           variateName: "",
@@ -245,10 +245,14 @@ export default defineStore("appStore", {
           },
         },
       ],
+      deviceType:1
     };
   },
   getters: {},
   actions: {
+    setDeviceType(type:number){
+      this.deviceType = type;
+    },
     setAppData(item){
       this.AppData = item.tempInfo;
     },

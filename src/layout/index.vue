@@ -10,20 +10,21 @@
                 </el-aside>
                 <!-- 主屏 -->
                 <el-main>
-                    <div class="form-container_main">
+                    <div class="form-container_main" :class="{'form-container_H5':deviceType==2}">
                         <el-scrollbar>
                             <el-form :model="formSetting" :label-width="AppData.labelWidth" class="form_class"
                                 :label-position="AppData.labelPosition" :size="AppData.size">
                                 <draggable :list="AppData.AppList" :group="groupB" animation="300" handle=".move"
                                     @add="handleAdd" class="draggable_content" item-key="uid" @end="handleMove">
                                     <template #item="{ element:{componentContent,uid,type,name},index }">
-                                        <div class="page_list-item" @click.stop="selectComponent(uid,componentContent,type)"
+                                        <div class="page_list-item"
+                                            @click.stop="selectComponent(uid,componentContent,type)"
                                             :class="{actived:id==uid}">
                                             <el-form-item :label="componentContent.label"
                                                 :required="componentContent.isRequired"
                                                 :label-width="componentContent.labelWidth" :key="uid">
-                                                <component :is="type" :key="uid"
-                                                    :size="componentContent.size" :componentContent="componentContent"
+                                                <component :is="type" :key="uid" :size="componentContent.size"
+                                                    :componentContent="componentContent"
                                                     :disabled="componentContent.disabled"
                                                     v-model="componentContent.defaultValue" class="component_style">
                                                 </component>
@@ -57,7 +58,7 @@ import draggable from "vuedraggable"
 import ASide from "./components/ASide/index.vue"
 import Header from "./components/Header/index.vue"
 import Panel from "./components/Panel/index.vue"
-import { defineComponent, reactive,ref } from "vue"
+import { defineComponent, reactive,ref,computed } from "vue"
 import { storeToRefs } from "pinia"
 import useAppStore from "@/stores/app.ts"
 // import JInput from "@/components/JInput/index.vue";
@@ -76,6 +77,9 @@ export default defineComponent({
     },
     setup() {
         const appStore = useAppStore();
+        let deviceType = computed(()=>{
+            return appStore.deviceType
+        })
         const groupB:GroupType = reactive({ name: "startBox", pull: false,put:true });
         const formSetting = reactive({
 
@@ -103,6 +107,7 @@ export default defineComponent({
             groupB,
             formSetting,
             id,
+            deviceType,
             handleMove,
             handleAdd,
             selectComponent,
@@ -147,7 +152,7 @@ export default defineComponent({
         }
     }
     .component_style{
-        flex: 1;
+        flex: 1 !important;
     }
     
 }
@@ -167,6 +172,12 @@ export default defineComponent({
     min-height: calc(100vh - 80px);
     background-color: #fff;
     padding:10px;
+}
+.form-container_H5{
+    width: 420px;
+    border-radius: 15px;
+    margin: 0 auto;
+    box-shadow: 0px 0px 1px 10px #444b5a;
 }
 .draggable_content{
     height: calc(100vh - 101px);
