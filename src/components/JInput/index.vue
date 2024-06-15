@@ -15,7 +15,6 @@ import { defineModel,defineProps } from "vue";
 import type { PropsType } from "../../interface/component.ts"
 const model = defineModel({ default: "" })
 const props = defineProps<PropsType>();
-console.log(props);
 </script>
  
 <style scoped lang="scss"></style>

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "module": "es2020",
     "downlevelIteration": true,
     "importHelpers": true,
     "moduleResolution": "node",
@@ -20,6 +21,9 @@
     "src/**/*.vue",  
     "tests/**/*.ts",  
     "tests/**/*.tsx"  
-  ], 
-  
+  ],
+  "exclude": [
+    "src/components/AceEditor/aceConfig.js",
+    "src/router/index.js"
+  ]
 }

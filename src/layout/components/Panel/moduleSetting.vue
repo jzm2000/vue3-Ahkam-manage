@@ -229,7 +229,6 @@ function handleChange(){
     
 }
 function exportOptions(){
-    console.log();
     content.value = setJson(currentComponent.value.componentContent.options)
     visible2.value = true;
 }

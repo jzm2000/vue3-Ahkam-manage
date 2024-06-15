@@ -35,7 +35,6 @@ import useAppStore from "@/stores/app.ts";
 import { storeToRefs } from "pinia";
 const appStore = useAppStore();
 let {deviceType} = storeToRefs(appStore);
-console.log(deviceType);
 const {AppData} = storeToRefs(appStore)
 let formVisible = ref<boolean>(false);
 let codeVisible = ref<boolean>(false);

@@ -101,7 +101,6 @@ export default defineComponent({
             }).catch(e=>{})
         }
         const { AppData } = storeToRefs(appStore)
-        console.log("AppData",AppData);
         return {
             AppData,
             groupB,
@@ -151,7 +150,7 @@ export default defineComponent({
             color: #fff;
         }
     }
-    .component_style{
+    :deep(.component_style){
         flex: 1 !important;
     }
     

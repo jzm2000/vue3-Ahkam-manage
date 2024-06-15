@@ -48,7 +48,7 @@
     <el-button @click="handleSubmit">校验</el-button>
   </el-dialog>
 </template>
-<script setup>
+<script setup lang="ts">
 import { reactive,defineModel,ref } from "vue"
 let model = defineModel()
 const formSetting = reactive({
@@ -92,5 +92,16 @@ function handleSubmit(){
     }
   })
 }
+function identify<T>(arg:T):T{
+  return arg
+}
+interface IdentType<T> {
+  (arg:T):T;
+}
+let indentify3 = <T>(arg:T):T=> arg;
+console.log(identify<string>('你好'));
 </script>
 <style lang="scss" scoped></style>
+
+
+
