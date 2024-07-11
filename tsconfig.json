@@ -8,22 +8,20 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": null,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "outDir": "dist"
     // 其他配置...
   },
-  "include": [  
-    "src/**/*.ts",  
-    "src/**/*.tsx",  
-    "src/**/*.vue",  
-    "tests/**/*.ts",  
-    "tests/**/*.tsx"  
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
   ],
-  "exclude": [
-    "src/components/AceEditor/aceConfig.js",
-    "src/router/index.js"
-  ]
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }
