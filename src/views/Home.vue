@@ -153,17 +153,18 @@ export default defineComponent({
     //   console.log(e.data);
     // }
     function sendMsg() {
-      fetch("http://127.0.0.1:6594/ws/getAccessToken",{
-        method:"post",
-        headers:{
-          "Content-Type":"application/json"
+      fetch("http://127.0.0.1:6594/ws/getAccessToken", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-          text:msg.value,
-          userId:3
-        })
-      }).then(response=>{
-         const decoder = new TextDecoder("utf-8");
+        body: JSON.stringify({
+          text: msg.value,
+          userId: 3,
+        }),
+      })
+        .then((response) => {
+          const decoder = new TextDecoder("utf-8");
           let buffer = [];
           const reader = response.body.getReader();
           function read() {
@@ -172,31 +173,45 @@ export default defineComponent({
                 return buffer;
               }
               const chunk = decoder.decode(value, { stream: false });
-              buffer.push(buffer)
+              buffer.push(buffer);
               console.log(chunk);
               read();
             });
           }
           return read();
-      }).then(res=>{
-        
-      }).catch(err=>{
-        console.log(err)
-      })
-      console.log(msg.value)
+        })
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(msg.value);
     }
-    onMounted(() => {
- 
-    });
-    let str = `非常抱歉，我误解了你之前所说的信息。以下是南昌市明天的天气预报：\n\n天气状况：多云转阵雨\n气温范围：25℃~31℃\n风向和风力：南风转东南风，微风\n日出时间：06:48\n日落时间：18:17\n\n请注意，由于天气状况可能会发生变化，建议您在出门前再次查看最新的天气预报。`
-    function setWriting(str){
+    onMounted(() => {});
+    let str = `非常抱歉，我误解了你之前所说的信息。以下是南昌市明天的天气预报：\n\n天气状况：多云转阵雨\n气温范围：25℃~31℃\n风向和风力：南风转东南风，微风\n日出时间：06:48\n日落时间：18:17\n\n请注意，由于天气状况可能会发生变化，建议您在出门前再次查看最新的天气预报。`;
+    function setWriting(str, callback, successBack,options={ num:1,speed:50 }) {
+      options = {
+        num: options.num || 1,
+        speed: options.speed || 50,
+      }
       let arr = str.split("");
       let strAll = "";
-      function getRequest(){
-        
+      let index = 0;
+      let len = arr.length;
+      function getRequest() {
+        strAll += arr[index];
+        if (index < len) {
+          setTimeout(() => {
+            callback(arr.slice(index,index+options.num));
+            index += options.num;
+            getRequest();
+          }, options.speed);
+        } else {
+          successBack();
+        }
       }
+      getRequest();
     }
-    setWriting(str);
+
     return {
       imageUrl,
       fileList,
