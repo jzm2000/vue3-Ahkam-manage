@@ -1,5 +1,5 @@
 /* color palette from <https://github.com/vuejs/theme> */
-@import "//at.alicdn.com/t/c/font_4621082_79pad0o9gfg.css";
+@import "//at.alicdn.com/t/c/font_4621082_senmuc12lwq.css";
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -96,4 +96,12 @@ body {
 }
 ul{
     list-style: none;
+}
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.w200{
+  width: 200px;
 }

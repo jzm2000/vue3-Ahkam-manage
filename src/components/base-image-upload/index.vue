@@ -41,7 +41,7 @@
 </template>
  
 <script setup>
-import { ref, reactive, getCurrentInstance, defineComponent,defineProps,defineEmits,defineOptions,watch } from "vue";
+import { ref, reactive, getCurrentInstance, defineComponent,defineProps,defineEmits,watch } from "vue";
 defineOptions({
   name:"baseImageUpload"
 })

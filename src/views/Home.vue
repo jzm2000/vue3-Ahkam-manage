@@ -27,21 +27,13 @@
       @keyup.enter="sendMsg"
       style="width: 200px"
     ></el-input>
+    
   </div>
 </template>
 
 <script>
 import { EventBus } from "@/utils/EventBus.ts";
 import { ref, reactive, defineComponent, watch, onMounted } from "vue";
-import axios from "axios";
-var myInit = {
-  method: "post",
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
-  cache: "default",
-  body: {},
-};
 export default defineComponent({
   setup() {
     let imageUrl = ref("");
