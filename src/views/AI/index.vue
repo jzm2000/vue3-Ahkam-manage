@@ -90,7 +90,8 @@ let uniqueIndex = ref(-1)
 let isReplay = ref(false);
 const chatInfo = reactive({
   id:null,
-  userId:5
+  userId:4,
+  type:1
 })
 const queryParams = reactive({
   pageSize:10,
@@ -100,7 +101,7 @@ onMounted(() => {
   mainRef = document.querySelector(".el-main");
   mainRef.addEventListener("scroll", (e) => {
     scrollTop.value = e.target.scrollTop;
-    if(!scrollTop.value && chatList.length){
+    if(!scrollTop.value){
       scrollLoad();
       e.target.scrollTop = 20
     }
@@ -146,11 +147,20 @@ function sendMsg(e) {
     },
     body: JSON.stringify({
       text: keyVal,
-      userId: 5,
-      id:chatInfo.id
+      userId: chatInfo.userId,
+      id:chatInfo.id,
+      type:chatInfo.type
     }),
   })
     .then((response) => {
+      if(response.status == 500){
+        isLoading.value = false;
+        isReplay.value = false;
+        chatList.pop();
+        ElMessage.error(response.statusText)
+        return false
+      }
+      
       const decoder = new TextDecoder("utf-8");
       let buffer = [];
       isLoading.value = false;
@@ -167,6 +177,7 @@ function sendMsg(e) {
           goToBottom();
           chatList.at(-1).content += obj.content;
           if(obj.type==2) isReplay.value = false;
+
           read();
         });
       }
@@ -191,7 +202,7 @@ function handleCopyCodeSuccess(){
 }
 function scrollLoad(){
   chatLoading.value = true;
-   queryParams.pageNum++
+  queryParams.pageNum++
   let params = {
     ...chatInfo,
     ...queryParams
@@ -206,6 +217,7 @@ function scrollLoad(){
 }
 function handleSelect(obj){
   chatInfo.id = obj.id
+  chatInfo.type = obj.type
   queryParams.pageNum = 1;
   chatLoading.value = true;
   let params = {
@@ -220,7 +232,7 @@ function handleSelect(obj){
       if(chatList.length){
         goToBottom();
       }else{
-        mainRef.scrollTop = 0
+        mainRef.scrollTop = 1
       }
     })
   })
@@ -230,11 +242,12 @@ function handleSelect(obj){
 <style scoped lang="scss">
 .chat_item_content {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   padding: 10px;
   border-radius: 8px;
   margin: 10px;
   .chat_info {
+    margin-top: 12px;
     p {
       margin: 0;
     }
