@@ -173,7 +173,7 @@ function sendMsg(e) {
           }
           const chunk = decoder.decode(value, { stream: false });
           let obj = JSON.parse(
-            /\{[\s\S]*}/g.exec(chunk)[0] || '{}',
+            /\{[\s\S]*}$/g.exec(chunk)[0] || '{}',
           )
           goToBottom();
           chatList.at(-1).content += obj.content;
