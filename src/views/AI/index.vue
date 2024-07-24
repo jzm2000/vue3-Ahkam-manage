@@ -120,6 +120,7 @@ onBeforeUnmount(()=>{
     scrollTop.value = e.target.scrollTop;
   });
 })
+
 function sendMsg(e) {
   let keyVal = keyWord.value
   if(e.shiftKey) return;
@@ -140,7 +141,7 @@ function sendMsg(e) {
   });
   isLoading.value = true;
   keyWord.value = ""
-  fetch("http://127.0.0.1:6594/ws/getAccessToken", {
+  fetch(`${import.meta.env.VITE_APP_URL}/ws/getAccessToken`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
