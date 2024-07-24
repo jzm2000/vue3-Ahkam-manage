@@ -167,18 +167,17 @@ function sendMsg(e) {
       isLoading.value = false;
       const reader = response.body.getReader();
       function read() {
-        reader.read().then(function processText({ done, value }) {
+        reader.read().then(async function processText({ done, value }) {
           if (done) {
             return buffer;
           }
           const chunk = decoder.decode(value, { stream: false });
-          console.log(chunk.substring(chunk.indexOf('{')))
-          let obj = JSON.parse(chunk.substring(chunk.indexOf('{')))
+          let obj = await JSON.parse(chunk.substring(chunk.indexOf('{')))
           goToBottom();
           chatList.at(-1).content += obj.content;
           if(obj.type==2) isReplay.value = false;
 
-          read();
+         await read();
         });
       }
       return read();
