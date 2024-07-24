@@ -172,24 +172,11 @@ function sendMsg(e) {
             return buffer;
           }
           const chunk = decoder.decode(value, { stream: false });
-           
-          const jsonMatch = /\{[\s\S]*?}/g.exec(chunk);
-          if (jsonMatch) {  
-              const jsonString = jsonMatch[0];  
-              try {  
-                  const obj = JSON.parse(jsonString);  
-                  console.log(jsonString);  
-                  // 假设 obj.content 和 obj.type 是存在的  
-                  chatList.at(-1).content += obj.content;  
-                  if (obj.type === 2) isReplay.value = false;  
-              } catch (error) {  
-                  console.error('Error parsing JSON:', error);  
-              }  
-          }
-          // let obj = JSON.parse(/\{[\s\S]*}/g.exec(chunk) || '{}')
+
+          let obj = JSON.parse(chunk.substring(chunk.indexOf('{')))
           goToBottom();
-          // chatList.at(-1).content += obj.content;
-          // if(obj.type==2) isReplay.value = false;
+          chatList.at(-1).content += obj.content;
+          if(obj.type==2) isReplay.value = false;
 
           read();
         });
