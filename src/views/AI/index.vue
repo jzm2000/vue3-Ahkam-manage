@@ -171,7 +171,10 @@ function sendMsg(e) {
           if (done) {
             return buffer;
           }
+          
           const chunk = decoder.decode(value, { stream: false });
+          console.log(isJSON(/\{[\s\S]*}/g.exec(chunk)[0]))
+          console.log(/\{[\s\S]*}/g.exec(chunk)[0])
           let obj = JSON.parse(/\{[\s\S]*}/g.exec(chunk) || '{}')
           goToBottom();
           chatList.at(-1).content += obj.content;
@@ -189,6 +192,23 @@ function sendMsg(e) {
       isReplay.value = false;
       chatList.pop();
     });
+}
+
+function isJSON(str){
+  if(typeof str === 'string'){
+    try{
+      let obj=JSON.parse(str);
+      if(typeof obj == 'object' && obj ){
+        return true;
+      }else{
+        return false;
+      }
+    }catch(e){
+      return false
+    }
+  }else{
+    return false;
+  }
 }
 function goToBottom() {
   mainRef.scrollTop = mainRef.scrollHeight;
