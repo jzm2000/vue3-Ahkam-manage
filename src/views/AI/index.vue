@@ -172,9 +172,7 @@ function sendMsg(e) {
             return buffer;
           }
           const chunk = decoder.decode(value, { stream: false });
-          let obj = JSON.parse(
-            /\{[\s\S]*}$/g.exec(chunk)[0] || '{}',
-          )
+          let obj = JSON.parse(/\{[\s\S]*}/g.exec(chunk) || '{}')
           goToBottom();
           chatList.at(-1).content += obj.content;
           if(obj.type==2) isReplay.value = false;
