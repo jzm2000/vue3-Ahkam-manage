@@ -171,13 +171,17 @@ function sendMsg(e) {
           if (done) {
             return buffer;
           }
-          const chunk = decoder.decode(value, { stream: false });
-          console.log(chunk.substring(chunk.indexOf("{")))
-          let obj = JSON.parse(chunk.substring(chunk.indexOf('{')))
-          goToBottom();
-          chatList.at(-1).content += obj.content;
-          if(obj.type==2) isReplay.value = false;
-          read();
+          const chunk = decoder.decode(value, { stream: false });          
+          try{
+            let obj = JSON.parse(chunk.substring(chunk.indexOf('{')));
+            goToBottom();
+            chatList.at(-1).content += obj.content;
+            if(obj.type==2) isReplay.value = false;
+            read();
+          }catch(e){
+            isReplay.value = false;
+          }
+          
         });
       }
       return read();
