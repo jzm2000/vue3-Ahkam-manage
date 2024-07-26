@@ -12,8 +12,8 @@
                     </el-form-item>
                     <el-form-item label="验证码">
                         <div class="captcha_img">
-                            <el-input v-model="form.password" style="width:180px;" placeholder="请输入验证码" type="text" show-password></el-input>
-                            <div class="svg_div" v-html="captcha" @click="getVerityCode"></div>
+                            <el-input v-model="form.verifyCode" style="width:180px;" placeholder="请输入验证码" type="text" show-password></el-input>
+                            <div class="svg_div" v-html="verifySvg" @click="getVerityCode"></div>
                         </div>
                     </el-form-item>
                     <div class="operation_btn">
@@ -32,6 +32,8 @@
 <script setup lang="ts">
 import {getCaptcha} from "@/api"
 import { ref, reactive,watch,defineOptions } from 'vue';
+import { login } from "@/api/index.js"
+import { encrypt } from "@/utils/base.js"
 defineOptions({
     name: 'Login'
 })
@@ -46,23 +48,29 @@ const emit = defineEmits([
 ])
 let loginVisible = ref(false);
 let state = ref(1);
-let captcha = ref('');
 let form = reactive({
-    username: '',
-    password: '' 
+    username: 'jzm',
+    password: '1234',
+    verifyCode:"" 
 })
-  
+let verifySvg = ref('');
 function handleCancel() {
     loginVisible.value = false;
     emit('update:modelValue', false)
 }
 function handleSave() {
+    let param = JSON.parse(JSON.stringify(form));
+ 
+    param.password = encrypt(param.password)
+    login(param).then(res=>{
+        console.log(res)
+    })
     loginVisible.value = false;
     emit('update:modelValue', false);
 }  
 function getVerityCode(){
     getCaptcha().then(res=>{
-        captcha.value = res.data
+        verifySvg.value = res.data
     })
 }
 function handleClose(){
