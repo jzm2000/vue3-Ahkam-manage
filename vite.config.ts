@@ -44,7 +44,12 @@ export default defineConfig({
       "^/dev-api": {
         target: "http://127.0.0.1:8848",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/dev-api/, ''),
+        rewrite: (path) => path.replace(/^\/dev-api/, ""),
+      },
+      "^/devPro-api": {
+        target: "http://1.94.146.141:8848",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/devPro-api/, ""),
       },
     },
     host: "127.0.0.1",
