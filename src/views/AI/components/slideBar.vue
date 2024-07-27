@@ -123,6 +123,8 @@ import { getTitleList, createTopic, deleteTopic, selectVersion,updateTopic } fro
 const emit = defineEmits(["handleSelect"]);
 import { ElMessage, ElMessageBox } from "element-plus";
 import login from "@/components/login/index.vue"
+import userStore from "@/stores/user.js";
+const user = userStore();
 type TitleList = {
   title: string;
   id: number;
@@ -136,11 +138,12 @@ const options = [{label:"Spark4.0 Ultra",value:"4.0Ultra"},{label:"Spark3.5 Max"
 const domain = ref("4.0Ultra");
 const chatInfo: Reactive<chatInfoType> = reactive({
   id: null,
-  userId: 4,
+  userId: user.userInfo.id,
 });
+console.log(user.userInfo)
 const chatVisible = ref(false);
 const chatForm = reactive({
-  userId: chatInfo.userId,
+  userId: user.userInfo.id,
   title: "",
   type: 1,
 });

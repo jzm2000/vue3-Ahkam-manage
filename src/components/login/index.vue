@@ -12,7 +12,7 @@
                     </el-form-item>
                     <el-form-item label="验证码">
                         <div class="captcha_img">
-                            <el-input v-model="form.verifyCode" style="width:180px;" placeholder="请输入验证码" type="text" show-password></el-input>
+                            <el-input v-model="form.verifyCode" style="width:180px;" placeholder="请输入验证码" type="text"></el-input>
                             <div class="svg_div" v-html="verifySvg" @click="getVerityCode"></div>
                         </div>
                     </el-form-item>
@@ -34,6 +34,9 @@ import {getCaptcha} from "@/api"
 import { ref, reactive,watch,defineOptions } from 'vue';
 import { login } from "@/api/index.js"
 import { encrypt } from "@/utils/base.js"
+import { ElMessage } from "element-plus";
+import userStore from "@/stores/user.js"
+const store = userStore();
 defineOptions({
     name: 'Login'
 })
@@ -62,11 +65,18 @@ function handleSave() {
     let param = JSON.parse(JSON.stringify(form));
  
     param.password = encrypt(param.password)
-    login(param).then(res=>{
-        console.log(res)
+    store.loginAction(param).then(res=>{
+        if(res.code == 200){
+            ElMessage.success('登录成功')
+            loginVisible.value = false;
+            emit('update:modelValue', false)
+        }else{
+            ElMessage.error(res.msg)
+        }
+    }).catch(err=>{
+        console.log(err)
     })
-    loginVisible.value = false;
-    emit('update:modelValue', false);
+    form.verifyCode = ''
 }  
 function getVerityCode(){
     getCaptcha().then(res=>{
