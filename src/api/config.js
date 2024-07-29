@@ -4,7 +4,8 @@ const instance = axios.create({
   baseURL: import.meta.env.VITE_APP_URL,
   timeout: 10000,
 });
-axios.defaults.withCredentials = true;
+console.log(import.meta.env.VITE_APP_URL)
+// axios.defaults.withCredentials = true;
 // instance.defaults.withCredentials = true;
 export function get(url,params){
   return new Promise((resolve,reject)=>{
