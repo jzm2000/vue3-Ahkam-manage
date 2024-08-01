@@ -78,6 +78,8 @@ import {
   watch
 } from "vue";
 import {ElMessage} from "element-plus"
+import userStore from "@/stores/user.js"
+const store = userStore();
 let keyWord = ref("");
 let chatRef = ref("");
 let mainRef;
@@ -90,7 +92,7 @@ let uniqueIndex = ref(-1)
 let isReplay = ref(false);
 const chatInfo = reactive({
   id:null,
-  userId:4,
+  userId:store.userInfo.id,
   type:1
 })
 const queryParams = reactive({

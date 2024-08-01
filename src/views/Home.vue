@@ -1,33 +1,39 @@
 <template>
   <div>
-    <el-button @click="handleClick">发送事件</el-button>
-    <el-button @click="handleOff">解除事件</el-button>
-    <el-button @click="handleBind">重新绑定</el-button>
-    <el-upload
-      :http-request="httpRequest"
-      action="http://60.204.237.223:6594/upload"
-      class="avatar-uploader"
-      ref="upload"
-      :multiple="false"
-      :before-upload="beforeUpload"
-    >
-      <el-button slot="trigger" type="primary">分片上传</el-button>
-    </el-upload>
-    <el-upload action="http://60.204.237.223:6594/upload">
-      <el-button slot="trigger">单图片上传</el-button>
-    </el-upload>
-    <el-upload action="" multiple :http-request="httpRequest2">
-      <el-button slot="trigger">多图片上传</el-button>
-    </el-upload>
-    <el-button @click="uploadMultiple">开始多图片上传</el-button>
-    <baseImageUpload v-model="fileList" multiple></baseImageUpload>
+    <div style="display:flex;align-items:flex-start;">
+      <el-button @click="handleClick">发送事件</el-button>
+      <el-button @click="handleOff">解除事件</el-button>
+      <el-button @click="handleBind">重新绑定</el-button>
+      <el-upload
+        :http-request="httpRequest"
+        action="http://60.204.237.223:6594/upload"
+        class="avatar-uploader"
+        ref="upload"
+        :multiple="false"
+        :before-upload="beforeUpload"
+      >
+        <el-button slot="trigger" type="primary">分片上传</el-button>
+      </el-upload>
+      <el-upload action="http://60.204.237.223:6594/upload">
+        <el-button slot="trigger">单图片上传</el-button>
+      </el-upload>
+      <el-upload action="" multiple :http-request="httpRequest2">
+        <el-button slot="trigger">多图片上传</el-button>
+      </el-upload>
+      <el-button @click="uploadMultiple">开始多图片上传</el-button>
+      <baseImageUpload v-model="fileList" multiple></baseImageUpload>
 
-    <el-input
-      v-model="msg"
-      @keyup.enter="sendMsg"
-      style="width: 200px"
-    ></el-input>
-    
+      <el-input
+        v-model="msg"
+        @keyup.enter="sendMsg"
+        style="width: 200px"
+      ></el-input>
+    </div>
+    <div class="box_over">
+      <ul>
+        <li v-for="(item,index) in 10" :style="`background:rgb(${255 * Math.random() * 2},${255 * Math.random() * 2},${255*Math.random() * 4})`">{{index}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -36,6 +42,34 @@ import { EventBus } from "@/utils/EventBus.ts";
 import { ref, reactive, defineComponent, watch, onMounted } from "vue";
 export default defineComponent({
   setup() {
+    onMounted(() => {
+      let observer = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            // 当元素进入视口时
+            if (entry.isIntersecting) {
+              console.log("元素进入", entry.target.textContent);
+              entry.target.style.transform = "translateX(0px)";
+              entry.target.style.opacity = 1;
+            } else {
+              // 当元素离开视口时
+              let i = Math.floor(Math.random() * 2);
+              console.log("元素消失", entry.target.textContent);
+              entry.target.style.transform = `translateX(${i ? 100 : -100}px)`;
+              entry.target.style.opacity = 0;
+            }
+          });
+        },
+        {
+          rootMargin: "0px",
+          threshold: 0.1, // 你可以调整这个值来控制元素与视口的交叉程度
+        },
+      );
+      document.querySelectorAll("li").forEach((item) => {
+        observer.observe(item);
+      });
+    });
+
     let imageUrl = ref("");
     let fileList = ref("");
     let msg = ref("");
@@ -179,30 +213,7 @@ export default defineComponent({
       console.log(msg.value);
     }
     onMounted(() => {});
-    let str = `非常抱歉，我误解了你之前所说的信息。以下是南昌市明天的天气预报：\n\n天气状况：多云转阵雨\n气温范围：25℃~31℃\n风向和风力：南风转东南风，微风\n日出时间：06:48\n日落时间：18:17\n\n请注意，由于天气状况可能会发生变化，建议您在出门前再次查看最新的天气预报。`;
-    function setWriting(str, callback, successBack,options={ num:1,speed:50 }) {
-      options = {
-        num: options.num || 1,
-        speed: options.speed || 50,
-      }
-      let arr = str.split("");
-      let strAll = "";
-      let index = 0;
-      let len = arr.length;
-      function getRequest() {
-        strAll += arr[index];
-        if (index < len) {
-          setTimeout(() => {
-            callback(arr.slice(index,index+options.num));
-            index += options.num;
-            getRequest();
-          }, options.speed);
-        } else {
-          successBack();
-        }
-      }
-      getRequest();
-    }
+
 
     return {
       imageUrl,
@@ -221,4 +232,40 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.box_over {
+  position: relative;
+  border: 1px solid #000;
+  float: left;
+  height: 400px;
+  width: 400px;
+  overflow: auto;
+  ul {
+    overflow: hidden;
+    li {
+      line-height: 100px;
+      text-align: center;
+      transition: all 1s ease-in;
+      overflow: hidden;
+      &::before{
+        content:"";
+        position: absolute;
+        left:50%;
+        transform: translate(-50%,-50%);
+        top: 50%;
+        width:0;
+        height:0;
+        transition: all 0.5s ease;
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.3);
+        // border-radius: 50%;
+        z-index: -1;
+      }
+      &:hover::before{
+        width:140%;
+        height:140%;
+      }
+    }
+  }
+}
+</style>

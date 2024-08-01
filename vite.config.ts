@@ -41,13 +41,13 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/dev": {
-        target: "http://127.0.0.1:8848",
-        changeOrigin: true,
-        rewrite: (path) => {
-          return path.replace(/\/dev/, "");
-        },
-      },
+      // "/dev": {
+      //   target: "http://127.0.0.1:8848",
+      //   changeOrigin: true,
+      //   rewrite: (path) => {
+      //     return path.replace(/\/dev/, "");
+      //   },
+      // },
       // "^/devPro-api": {
       //   target: "http://1.94.146.141:8848",
       //   changeOrigin: true,
@@ -60,5 +60,6 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 5173,
     open: true,
+    // cors:true
   },
 });

@@ -18,6 +18,11 @@ const router = createRouter({
       path:"/AI",
       name:"AI",
       component: () => import("@/views/AI/index.vue")
+    },
+    {
+      path:"/dragPage",
+      name:"drag",
+      component: () => import("@/views/dragPage/index.vue")
     }
   ]
 })
