@@ -1,113 +1,61 @@
 <template>
-    <div class="drag_page">
-      <div class="drag_zooe">
-        <div class="drag_box" draggable="true" v-for="item in list">
-          拖拽物{{ item }}
-        </div>
-      </div>
-      <div class="drag_target">
-        拖拽目标
-      </div>
+    <div>
+      <j-draggable :list="list">
+          <template #item="{item}" tag="div">
+            <transition name="list">
+              <div class="box">{{item.name}}</div>
+            </transition>
+          </template>
+      </j-draggable>
     </div>
 </template>
 
-<script setup>
-import { onMounted } from "vue"
-let list = ["a","b","c","d"]
+<script>
+import JDraggable from "@/components/JDraggable/index.vue";
+import { ref, reactive, getCurrentInstance,defineComponent,toRefs } from "vue";
+export default defineComponent({
+  components:{JDraggable},
+  setup(props){
+    const state = reactive({
+      list:[{
+        id:1,
+        name:'111'
+      },{
+        id:2,
+        name:'222'
+      },{
+        id:3,
+        name:'333'
+      },{
+        id:4,
+        name:'444'
+      }]
+    })
+    return {
+      ...toRefs(state)
+    }
+  }
 
-onMounted(()=>{
-  let dragBox = document.querySelectorAll(".drag_box");
-  let dragTarget = document.querySelector(".drag_target");
-  let dragZooe = document.querySelector(".drag_zooe");
-  let dragged;
-  Array.from(dragBox).forEach(item=>{
-      item.addEventListener("drag",(event)=>{
-        event.target.style.opacity = 0.5;
-        event.target.style.cursor = "move"
-      })
-      item.addEventListener("dragstart",(e)=>{
-        console.log("开始拖拽",e)
-        dragged = e.target
-         e.target.style.cursor = "move"
-      });
-      item.addEventListener("dragover",(e)=>{
-        e.target.style.cursor = "move"
-      })
-      item.addEventListener("dragend",(e)=>{
-        // console.log("拖拽结束",e)
-        e.target.style.opacity = 1;
-      });
-  })
-    dragZooe.addEventListener("dragenter",(e)=>{
-      console.log("拖拽进入",e)
-      
-    })
-    dragZooe.addEventListener("dragleave",(e)=>{
-      console.log("拖拽离开",e)
-    })
-    dragZooe.addEventListener("dragover",(e)=>{
-      e.preventDefault()
-    },false);
-    dragZooe.addEventListener("drop",(e)=>{
-      console.log("放置",e)
-      if(e.target.classList.contains("drag_zooe")){
-        console.log(1111)
-        dragged.parentNode.removeChild(dragged);
-        e.target.appendChild(dragged);
-        dragged = ""
-      }
-    })
-  
-  
-  
-  
-  
-  dragTarget.addEventListener("dragover",(e)=>{
-    e.preventDefault()
-  },false);
-
-  dragTarget.addEventListener("drop",(e)=>{
-    console.log("放置后",e)
-    if(e.target.classList.contains("drag_target")){
-      dragged.parentNode.removeChild(dragged);
-      e.target.appendChild(dragged);
-      e.target.style.backgroundColor = "#676795"
-      dragged = ""
-    }
-  })
-  dragTarget.addEventListener("dragenter",(e)=>{
-    console.log("进入目标",e)
-    if(e.target.classList.contains("drag_target")){
-      e.target.style.backgroundColor = "green"
-    }
-  })
-  dragTarget.addEventListener("dragleave",(e)=>{
-    console.log("离开目标",e)
-    if(e.target.classList.contains("drag_target")){
-      e.target.style.backgroundColor = "#676795"
-    }
-  })
 })
 
 </script>
 
 <style scoped lang="scss">
-.drag_zooe{
-  // width: 100px;
-  height: 100px;
-  border: 1px solid #000;
-}
-.drag_box{
+.box{
   width: 100px;
   height: 100px;
-  background-color: red;
+  background-color: #ccc;
+  margin: 10px;
   display: inline-block;
-  cursor: move;
+  transition: all 1s ease;
 }
-.drag_target{
-  min-width: 200px;
-  height: 200px;
-  background-color: #676795;
-
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
