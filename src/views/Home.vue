@@ -14,7 +14,7 @@
       >
         <el-button slot="trigger" type="primary">分片上传</el-button>
       </el-upload>
-      <el-upload action="http://60.204.237.223:6594/upload">
+      <el-upload action="http://127.0.0.1:8848/upload">
         <el-button slot="trigger">单图片上传</el-button>
       </el-upload>
       <el-upload action="" multiple :http-request="httpRequest2">
@@ -29,11 +29,11 @@
         style="width: 200px"
       ></el-input>
     </div>
-    <div class="box_over">
+    <!-- <div class="box_over">
       <ul>
         <li v-for="(item,index) in 10" :style="`background:rgb(${255 * Math.random() * 2},${255 * Math.random() * 2},${255*Math.random() * 4})`">{{index}}</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -71,7 +71,7 @@ export default defineComponent({
     });
 
     let imageUrl = ref("");
-    let fileList = ref("");
+    let fileList = ref([]);
     let msg = ref("");
     const $bus = new EventBus();
     $bus.on("greet", func);
@@ -93,7 +93,7 @@ export default defineComponent({
       return true;
     }
     function httpRequest({ file }) {
-      let num = 1024 * 1024;
+      let num = 1024 * 1024;//1MB
       let chunks = [];
       for (let i = 0; i < file.size; i += num) {
         chunks.push(file.slice(i, i + num));
@@ -103,7 +103,7 @@ export default defineComponent({
         const FD = new FormData();
         FD.append("file", chunks[i], file.name + "-" + i);
         reqList.push({
-          url: "http://60.204.237.223:6594/uploadMerge",
+          url: `${import.meta.env.VITE_APP_URL}/uploadMerge`,
           body: FD,
         });
         if (i === chunks.length - 1) {
@@ -111,7 +111,7 @@ export default defineComponent({
           FD2.append("file", chunks[i], file.name + "-" + i);
           FD2.append("isEnd", true);
           reqList.push({
-            url: "http://60.204.237.223:6594/uploadMerge",
+            url:`${import.meta.env.VITE_APP_URL}/uploadMerge`,
             body: FD2,
           });
         }
@@ -161,7 +161,7 @@ export default defineComponent({
       fileList.value.forEach((item) => {
         FD.append("fileList", item);
       });
-      fetch("http://60.204.237.223:6594/uploadMutiple", {
+      fetch(`${import.meta.env.VITE_APP_URL}/uploadMutiple`, {
         method: "post",
         body: FD,
       })

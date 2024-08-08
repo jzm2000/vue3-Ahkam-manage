@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-
+console.log(import.meta.env.MODE);
 import slideBar from "./components/slideBar.vue"
 import { getRecordList } from "@/api/index.js";
 import {
@@ -147,6 +147,7 @@ function sendMsg(e) {
     method: "post",
     headers: {
       "Content-Type": "application/json",
+      "NoEncrypt":true
     },
     body: JSON.stringify({
       text: keyVal,

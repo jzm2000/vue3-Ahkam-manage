@@ -21,6 +21,7 @@
     "crypto-js": "^4.2.0",
     "element-plus": "^2.7.3",
     "js-cookie": "^3.0.5",
+    "jsencrypt": "^3.3.2",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",

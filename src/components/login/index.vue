@@ -10,12 +10,12 @@
                     <el-form-item label="密码">
                         <el-input v-model="form.password" placeholder="请输入密码" type="password" show-password></el-input>
                     </el-form-item>
-                    <el-form-item label="验证码">
+                    <!-- <el-form-item label="验证码">
                         <div class="captcha_img">
                             <el-input v-model="form.verifyCode" style="width:180px;" placeholder="请输入验证码" type="text"></el-input>
                             <div class="svg_div" v-html="verifySvg" @click="getVerityCode"></div>
                         </div>
-                    </el-form-item>
+                    </el-form-item> -->
                     <div class="operation_btn">
                       <!-- <el-button type="primary" link>去注册</el-button> -->
                     </div>
@@ -54,7 +54,7 @@ let state = ref(1);
 let form = reactive({
     username: 'jzm',
     password: '1234',
-    verifyCode:"" 
+    // verifyCode:"" 
 })
 let verifySvg = ref('');
 function handleCancel() {
@@ -76,7 +76,7 @@ function handleSave() {
     }).catch(err=>{
         console.log(err)
     })
-    form.verifyCode = ''
+    // form.verifyCode = ''
 }  
 function getVerityCode(){
     getCaptcha().then(res=>{
@@ -89,7 +89,7 @@ function handleClose(){
 watch(()=>prop.modelValue,(val)=>{
     loginVisible.value = val
     if(val){
-        getVerityCode();
+        // getVerityCode();
     }
 },{immediate:true,deep:true})
 

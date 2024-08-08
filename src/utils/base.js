@@ -25,4 +25,3 @@ export function encrypt(data) {
   var ciphertext = CryptoJS.AES.encrypt(JSON.stringify(data), passphrase);
   return ciphertext.toString();
 }
-

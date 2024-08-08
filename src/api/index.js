@@ -1,4 +1,4 @@
-import { get, post, del } from "./config.js";
+import { get, post, del, postForm } from "./config.js";
 
 // 话题列表
 export const getTitleList = (params) => get("ws/getTitleList",params);
@@ -15,4 +15,4 @@ export const getCaptcha = (params) => get("users/captcha",params);
 // 更换版本
 export const selectVersion = (params) => post("ws/selectVersion",params);
 //登录
-export const login = (params) => post("users/login",params);
+export const login = (params) => postForm("users/login",params);
