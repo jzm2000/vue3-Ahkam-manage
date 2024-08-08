@@ -15,4 +15,4 @@ export const getCaptcha = (params) => get("users/captcha",params);
 // 更换版本
 export const selectVersion = (params) => post("ws/selectVersion",params);
 //登录
-export const login = (params) => postForm("users/login",params);
+export const login = (params) => post("users/login",params);
