@@ -23,7 +23,7 @@ const router = createRouter({
       path:"/dragPage",
       name:"drag",
       component: () => import("@/views/dragPage/index.vue")
-    }
+    },
   ]
 })
 

@@ -34,6 +34,9 @@
         <li v-for="(item,index) in 10" :style="`background:rgb(${255 * Math.random() * 2},${255 * Math.random() * 2},${255*Math.random() * 4})`">{{index}}</li>
       </ul>
     </div> -->
+    <div class="box">
+            <el-button type="primary" @click="shareToqq">分享到QQ</el-button>
+    </div>
   </div>
 </template>
 
@@ -212,7 +215,26 @@ export default defineComponent({
         });
       console.log(msg.value);
     }
-    onMounted(() => {});
+    //分享到qq
+    // function shareToqq(event){
+    //   event.preventDefault();
+    //   var _shareUrl = 'https://connect.qq.com/widget/shareqq/iframe_index.html?';
+    //       _shareUrl += 'url=' + encodeURIComponent("https://www.cnblogs.com/jzm2842688813/p/18249133");   //分享的链接
+    //       _shareUrl += '&title=' + encodeURIComponent("JavaScript实现发布与订阅");     //分享的标题
+    //   window.open(_shareUrl,'_blank');
+    //   // navigator.share({
+    //   //   title: '分享的标题',
+    //   //   text: '分享的文本内容',
+    //   //   url: 'https://www.cnblogs.com/jzm2842688813/p/18249133'
+    //   // }).then(() => {
+    //   //   console.log('Successful share');
+    //   // }).catch(error => {
+    //   //   console.log('Error sharing:', error);
+    //   // });
+    // }
+    onMounted(() => {
+
+    });
 
 
     return {
@@ -226,6 +248,7 @@ export default defineComponent({
       httpRequest,
       httpRequest2,
       sendMsg,
+      // shareToqq,
       msg,
     };
   },
